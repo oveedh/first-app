@@ -19,8 +19,6 @@ from streamlit.logger import get_logger
 
 LOGGER = get_logger(__name__)
 
-
-
 def simple_classify(client, input_string: str, prompt_string:str) -> str:
 
   completion = client.completions.create(model='gpt-3.5-turbo-instruct',
@@ -32,18 +30,22 @@ def simple_classify(client, input_string: str, prompt_string:str) -> str:
   return response
 
 def run():
-    st.set_page_config(
-        page_title="Hello World_OpenAI",
-        page_icon="😀",
-    )
+    st.set_page_config(page_title="Ovee Dharwadkar's Sentiment Analysis Using OpenAI", page_icon="🤪")
+    st.markdown("# Ovee Dharwadkar's Sentiment Analysis Using OpenAI")
+    st.write("""This app shows how you can use Streamlit to build cool animations.
+    It displays an animated fractal based on the the Julia Set. Use the slider
+    to tune different parameters.""")
 
-    password = st.text_input("enter openAI key: ")
-    prompt = st.text_input("enter prompt: ")
-    user_input = st.text_area("user input: ")
+    password = st.text_input("Enter your OpenAI key: ")
+    prompt = st.text_input("Enter a prompt: ")
+    user_input = st.text_area("User Input: ")
     if password:  
       client = OpenAI(api_key=password)
       response = simple_classify(client, user_input, prompt) 
       st.write(f"response is{response}")
 
+
 if __name__ == "__main__":
-    run()
+  run()
+
+
