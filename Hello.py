@@ -12,40 +12,38 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from openai import OpenAI
+import json
 import streamlit as st
 from streamlit.logger import get_logger
 
 LOGGER = get_logger(__name__)
 
 
+
+def simple_classify(client, input_string: str, prompt_string:str) -> str:
+
+  completion = client.completions.create(model='gpt-3.5-turbo-instruct',
+                                         prompt=f"{prompt_string}: {input_string}")
+  response=completion.choices[0].text
+  print(f"For {input_string}, response is:\n----------{response}\n=============")
+  #print(dict(completion).get('usage'))
+  #print(completion.model_dump_json(indent=2))
+  return response
+
 def run():
     st.set_page_config(
-        page_title="Hi",
+        page_title="Hello World_OpenAI",
         page_icon="😀",
     )
 
-    st.sidebar.write("# Welcome to Streamlit! 👋")
-
-    st.sidebar.success("Select a demo above.")
-
-    st.markdown(
-        """
-        Streamlit is an open-source app framework built specifically for
-        Machine Learning and Data Science projects.
-        **👈 Select a demo from the sidebar** to see some examples
-        of what Streamlit can do!
-        ### Want to learn more?
-        - Check out [streamlit.io](https://streamlit.io)
-        - Jump into our [documentation](https://docs.streamlit.io)
-        - Ask a question in our [community
-          forums](https://discuss.streamlit.io)
-        ### See more complex demos
-        - Use a neural net to [analyze the Udacity Self-driving Car Image
-          Dataset](https://github.com/streamlit/demo-self-driving)
-        - Explore a [New York City rideshare dataset](https://github.com/streamlit/demo-uber-nyc-pickups)
-    """
-    )
-
+    password = st.text_input("enter openAI key: ")
+    prompt = st.text_input("enter prompt: ")
+    user_input = st.text_area("user input: ")
+    if password:  
+      client = OpenAI(api_key=password)
+      response = simple_classify(client, user_input, prompt) 
+      st.write(f"response is{response}")
 
 if __name__ == "__main__":
     run()
