@@ -32,9 +32,7 @@ def simple_classify(client, input_string: str, prompt_string:str) -> str:
 def run():
     st.set_page_config(page_title="Ovee Dharwadkar's Sentiment Analysis Using OpenAI", page_icon="🤪")
     st.markdown("# Ovee Dharwadkar's Sentiment Analysis Using OpenAI")
-    st.write("""This app shows how you can use Streamlit to build cool animations.
-    It displays an animated fractal based on the the Julia Set. Use the slider
-    to tune different parameters.""")
+    st.write("""This is my first app with Q&A LLM!""")
 
     password = st.text_input("Enter your OpenAI key: ")
     prompt = st.text_input("Enter a prompt: ")
